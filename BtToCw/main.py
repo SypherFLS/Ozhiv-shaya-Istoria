@@ -3,36 +3,29 @@ import numpy as np
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from utils import *
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import BartTokenizer, BartForConditionalGeneration
+import json
 
 
-# def sigmoid(x):
-#     return 1 / (1 + np.exp(-x))
+with open('data_manipulation\main_training_data.json', 'r', encoding='utf-8') as file:
+    data = json.load(file)
 
-# def deriy_sigmoid(x):
-#     fx = sigmoid(x)
-#     return fx * (1 - fx)
 
-# def mse_loss(y_true, y_pred):
-#     return ((y_true - y_pred) ** 2).mean()
-
-# class NeuralNetwork_1:
-
-#     def __init__(self):
-#         torch.manual_seed(12)
-        
+tokenizer = BartTokenizer.from_pretrained('facebook/bart-large-cnn')
+model = BartForConditionalGeneration.from_pretrained('facebook/bart-large-cnn')
 
 
 
-# torch.manual_seed(12)
-# t = torch.randn(1, 5, 5)
-# t = torch.FloatTensor(2, 4).fill()
-# t = torch.uniform(0, 1)
-# t.normal_(0, 1)
-# t = torch.Tensor([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26])
-# d = t.view(3, 3, 3)
-# t = torch.arange(32).view(8, 2, 2)
+def generate_summary(text):
+    lens_text = len(text)
+    inputs = tokenizer.encode("summarize: " + text, return_tensors="pt", max_length=1024, truncation=True)
+    summary_ids = model.generate(inputs, max_length=(lens_text//2), min_length=(lens_text//6), length_penalty=2.0, num_beams=4, early_stopping=True)
+    summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+    return summary
 
-a = torch.arange(12)
+article = data["1"]
+summary = generate_summary(article)
+print(article)
+print('\n')
+print(summary)
 
-print(a)

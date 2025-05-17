@@ -39,7 +39,7 @@ def main():
                 
                     try:
                         text = modal_body.text.strip()
-
+                        text = text.replace("\n", ". ")
                         data[i+1] = text 
 
                         try:
@@ -66,12 +66,6 @@ def main():
         except Exception as e:
             print(f"Элемент не найден {i+1}: {e}")
             break
-    
-    # for i in range(len(data)):
-    #     with open('training_data.json', 'w', encoding='utf-8') as file:
-    #         json.dump(data[i], file, ensure_ascii=False, indent=4)
-    #     print(f"добавлен элемент {i+1}")
-
     
 
     with open('training_data.json', 'w', encoding='utf-8') as file:
