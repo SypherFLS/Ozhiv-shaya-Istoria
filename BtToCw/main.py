@@ -5,6 +5,25 @@ from torch.utils.data import DataLoader
 from utils import *
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
+
+# def sigmoid(x):
+#     return 1 / (1 + np.exp(-x))
+
+# def deriy_sigmoid(x):
+#     fx = sigmoid(x)
+#     return fx * (1 - fx)
+
+# def mse_loss(y_true, y_pred):
+#     return ((y_true - y_pred) ** 2).mean()
+
+# class NeuralNetwork_1:
+
+#     def __init__(self):
+#         torch.manual_seed(12)
+        
+
+
+
 # torch.manual_seed(12)
 # t = torch.randn(1, 5, 5)
 # t = torch.FloatTensor(2, 4).fill()
@@ -14,19 +33,6 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 # d = t.view(3, 3, 3)
 # t = torch.arange(32).view(8, 2, 2)
 
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
+a = torch.arange(12)
 
-def deriy_sigmoid(x):
-    fx = sigmoid(x)
-    return fx * (1 - fx)
-
-def mse_loss(y_true, y_pred):
-    return ((y_true - y_pred) ** 2).mean()
-
-class NeuralNetwork_1:
-
-    def __init__(self):
-        torch.manual_seed(12)
-
-
+print(a)
